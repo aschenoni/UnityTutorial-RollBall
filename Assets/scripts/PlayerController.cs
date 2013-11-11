@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {	
 	public float speed;
-	void Update()
+	void FixedUpdate()
 	{
 		float moveHorizontal = Input.GetAxis("Horizontal");
 		float moveVertical = Input.GetAxis("Vertical");
@@ -13,9 +13,12 @@ public class PlayerController : MonoBehaviour
 		
 		rigidbody.AddForce(movement * speed * Time.deltaTime);
 	}
-
-	void FixedUpdate()
+	
+	void OnTriggerEnter(Collider other)
 	{
-		
+		if (other.gameObject.tag == "Pickup")
+		{
+			other.gameObject.SetActive(false);	
+		}
 	}
 }

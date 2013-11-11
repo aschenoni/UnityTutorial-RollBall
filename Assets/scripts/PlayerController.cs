@@ -4,6 +4,17 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {	
 	public float speed;
+	public GUIText countText;
+	public GUIText winText;
+	private int count;
+	
+	void Start()
+	{
+		count = 0;
+		SetCountText();
+		winText.text = "";
+		winText.material.color =  Color.black;
+	}
 	void FixedUpdate()
 	{
 		float moveHorizontal = Input.GetAxis("Horizontal");
@@ -18,7 +29,19 @@ public class PlayerController : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Pickup")
 		{
-			other.gameObject.SetActive(false);	
+			other.gameObject.SetActive(false);
+			count++;
+			SetCountText();
+			
+		}
+	}
+	
+	void SetCountText()
+	{
+		countText.text = "Count " + count.ToString();
+		if(count >= 9)
+		{
+			winText.text = "You WON!!!";
 		}
 	}
 }
